@@ -7,11 +7,25 @@
     "conteudo": "A ETPC (Escola Tecnológica e Profissional de Cantanhede) é uma instituição de ensino profissional focada na preparação de alunos para o mercado de trabalho e prosseguimento de estudos. Oferece formação prática, tecnológica e cívica com equivalência ao 12º ano."
   },
   {
+    "id": "fct",
+    "titulo": "Formação em Contexto de Trabalho (FCT)",
+    "url": "https://etpc.pt/projetos",
+    "palavras_chave": ["fct", "formacao", "contexto", "trabalho", "estagio", "estagios", "empresa", "empresas", "pratica"],
+    "conteudo": "A FCT (Formação em Contexto de Trabalho) é o estágio prático obrigatório realizado pelos alunos dos Cursos Profissionais durante o 2.º e 3.º ano letivo. Permite a aplicação prática dos conhecimentos adquiridos em contexto real de trabalho dentro de empresas e entidades parceiras."
+  },
+  {
     "id": "pap",
     "titulo": "Prova de Aptidão Profissional (PAP)",
     "url": "https://etpc.pt/",
     "palavras_chave": ["pap", "prova", "aptidao", "profissional", "projeto", "final", "defesa", "juri", "12 ano"],
-    "conteudo": "A PAP (Prova de Aptidão Profissional) é o projeto final integrador realizado pelos alunos dos Cursos Profissionais no 3.º ano de escolaridade. Consiste na conceção, desenvolvimento e defesa pública de um trabalho prático e respetivo relatório perante um júri de avaliação, permitindo a obtenção do diploma profissional de Nível 4 e a conclusão do 12.º ano."
+    "conteudo": "A PAP (Prova de Aptidão Profissional) é o projeto final integrador realizado pelos alunos no 3.º ano dos Cursos Profissionais. Consiste na conceção, desenvolvimento e defesa pública de um trabalho prático e respetivo relatório perante um júri de avaliação."
+  },
+  {
+    "id": "erasmus",
+    "titulo": "Programa Erasmus+ (Estágios Internacionais)",
+    "url": "https://etpc.pt/projetos",
+    "palavras_chave": ["erasmus", "internacional", "estrangeiro", "europa", "mobilidade", "intercambio"],
+    "conteudo": "A ETPC integra o programa europeu Erasmus+, permitindo que os alunos realizem o seu período de FCT (estágio) no estrangeiro em países da União Europeia, desenvolvendo competências profissionais e linguísticas."
   },
   {
     "id": "curso-informatica",
