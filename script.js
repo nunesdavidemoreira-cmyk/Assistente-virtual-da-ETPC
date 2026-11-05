@@ -2,7 +2,6 @@ let conhecimentoETPC = [];
 
 // Palavras a ignorar na pesquisa
 const stopWords = ['o', 'a', 'os', 'as', 'um', 'uma', 'de', 'da', 'do', 'em', 'para', 'que', 'qual', 'quais', 'onde', 'como', 'existe', 'ha', 'tem', 'sobre', 'mais', 'queria', 'saber', 'ver', 'me', 'e'];
-
 // Palavras-chave associadas a assuntos fora do âmbito da escola
 const temasForaAmbito = ['futebol', 'politica', 'receita', 'jogo', 'tempo', 'meteo', 'filme', 'musica', 'presidente', 'carro'];
 
