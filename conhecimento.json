@@ -7,6 +7,13 @@
     "conteudo": "A ETPC (Escola Tecnológica e Profissional de Cantanhede) é uma instituição de ensino profissional focada na preparação de alunos para o mercado de trabalho e prosseguimento de estudos. Oferece formação prática, tecnológica e cívica com equivalência ao 12º ano."
   },
   {
+    "id": "pap",
+    "titulo": "Prova de Aptidão Profissional (PAP)",
+    "url": "https://etpc.pt/",
+    "palavras_chave": ["pap", "prova", "aptidao", "profissional", "projeto", "final", "defesa", "juri", "12 ano"],
+    "conteudo": "A PAP (Prova de Aptidão Profissional) é o projeto final integrador realizado pelos alunos dos Cursos Profissionais no 3.º ano de escolaridade. Consiste na conceção, desenvolvimento e defesa pública de um trabalho prático e respetivo relatório perante um júri de avaliação, permitindo a obtenção do diploma profissional de Nível 4 e a conclusão do 12.º ano."
+  },
+  {
     "id": "curso-informatica",
     "titulo": "Curso Técnico de Informática - Gestão de Redes",
     "url": "https://etpc.pt/cursos",
@@ -24,6 +31,7 @@
     "id": "curso-restauracao",
     "titulo": "Curso Técnico de Restauração",
     "url": "https://etpc.pt/cursos",
+    "palavras_chave": ["restauracao", "cozinha", "pastelaria", "bar", "restaurante", "curso"],
     "conteudo": "O Curso Técnico de Restauração abrange as vertentes de Cozinha/Pastelaria e Restaurante/Bar, conferindo equivalência ao 12º ano e certificação profissional de Nível 4."
   },
   {
