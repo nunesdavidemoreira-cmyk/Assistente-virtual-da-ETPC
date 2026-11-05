@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETPC - Escola Tecnológica e Profissional de Cantanhede</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .bg-etpc-blue { background-color: #003366; }
+    .text-etpc-blue { color: #003366; }
+    .border-etpc-blue { border-color: #003366; }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans min-h-screen flex flex-col">
+
+  <!-- Cabeçalho Oficial ETPC -->
+  <header class="bg-etpc-blue text-white shadow-lg sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl font-extrabold tracking-wider border-b-2 border-white pb-1">ETPC</span>
+        <span class="hidden md:inline text-xs text-gray-200 border-l border-blue-400 pl-3">Escola Tecnológica e Profissional de Cantanhede</span>
+      </div>
+      <nav class="flex items-center space-x-6 text-sm font-medium">
+        <a href="https://etpc.pt/" target="_blank" class="hover:text-blue-200 transition">Site Oficial ↗</a>
+        <a href="https://etpc.pt/cursos" target="_blank" class="hover:text-blue-200 transition">Cursos</a>
+        <a href="https://etpc.pt/contactos" target="_blank" class="hover:text-blue-200 transition">Contactos</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Corpo da Página -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 py-12 text-center flex flex-col items-center justify-center">
+    <span class="text-xs uppercase font-bold tracking-widest text-etpc-blue bg-blue-100 px-3 py-1 rounded-full mb-4">Assistente Virtual com RAG</span>
+    <h1 class="text-3xl md:text-5xl font-extrabold text-etpc-blue mb-4 leading-tight">
+      Bem-vindo à ETPC
+    </h1>
+    <p class="text-base md:text-lg text-gray-600 max-w-2xl mb-8">
+      Esclarece as tuas dúvidas sobre a nossa oferta formativa, inscrições, estágios e contactos através do assistente virtual treinado com os dados oficiais do site da escola.
+    </p>
+  </main>
+
+  <!-- Widget Flutuante do Assistente Virtual -->
+  <div id="chat-widget" class="fixed bottom-5 right-5 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden h-[520px] z-50">
+    
+    <!-- Chat Header -->
+    <div class="bg-etpc-blue text-white p-4 flex justify-between items-center shadow-md">
+      <div class="flex items-center space-x-2">
+        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+        <span class="font-bold text-sm">Assistente Oficial ETPC</span>
+      </div>
+      <span class="text-xs text-blue-200">RAG Base de Dados</span>
+    </div>
+
+    <!-- Chat Messages Container -->
+    <div id="chat-box" class="flex-1 p-4 overflow-y-auto space-y-3 text-sm bg-gray-50">
+      <div class="bg-white text-gray-800 p-3 rounded-2xl rounded-tl-none shadow-sm border border-gray-200 max-w-[85%]">
+        Olá! Sou o assistente virtual da ETPC. Em que posso ajudar hoje sobre os nossos cursos, inscrições ou escola?
+      </div>
+    </div>
+
+    <!-- Chat Input Form -->
+    <form id="chat-form" class="p-3 bg-white border-t border-gray-200 flex gap-2">
+      <input type="text" id="user-input" placeholder="Escreve aqui a tua pergunta..." required
+             class="flex-1 border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-etpc-blue">
+      <button type="submit" class="bg-etpc-blue text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-900 transition shadow">
+        Enviar
+      </button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

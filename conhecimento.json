@@ -1,0 +1,57 @@
+[
+  {
+    "id": "apresentacao",
+    "titulo": "Sobre a ETPC",
+    "url": "https://etpc.pt/",
+    "palavras_chave": ["etpc", "escola", "cantanhede", "quem", "sobre", "apresentacao", "historia"],
+    "conteudo": "A ETPC (Escola Tecnológica e Profissional de Cantanhede) é uma instituição de ensino profissional focada na preparação de alunos para o mercado de trabalho e prosseguimento de estudos. Oferece formação prática, tecnológica e cívica com equivalência ao 12º ano."
+  },
+  {
+    "id": "curso-informatica",
+    "titulo": "Curso Técnico de Informática - Gestão de Redes",
+    "url": "https://etpc.pt/cursos",
+    "palavras_chave": ["informatica", "redes", "programacao", "computadores", "tecnologia", "software", "curso"],
+    "conteudo": "O Curso Técnico de Informática (Gestão de Redes e Programação) tem a duração de 3 anos, confere o 12º ano e diploma profissional de Nível 4 do QNQ. Capacita em montagem de computadores, redes e desenvolvimento de software."
+  },
+  {
+    "id": "curso-desporto",
+    "titulo": "Curso Técnico de Desporto",
+    "url": "https://etpc.pt/cursos",
+    "palavras_chave": ["desporto", "exercicio", "atividades", "treino", "curso"],
+    "conteudo": "O Curso Técnico de Desporto é um curso profissional de 3 anos (Nível 4 do QNQ) destinado à organização de atividades físicas, gestão de instalações desportivas e apoio ao treino."
+  },
+  {
+    "id": "curso-restauracao",
+    "titulo": "Curso Técnico de Restauração",
+    "url": "https://etpc.pt/cursos",
+    "conteudo": "O Curso Técnico de Restauração abrange as vertentes de Cozinha/Pastelaria e Restaurante/Bar, conferindo equivalência ao 12º ano e certificação profissional de Nível 4."
+  },
+  {
+    "id": "curso-multimedia",
+    "titulo": "Curso Técnico de Multimédia",
+    "url": "https://etpc.pt/cursos",
+    "palavras_chave": ["multimedia", "design", "video", "imagem", "web", "3d", "curso"],
+    "conteudo": "O Curso Técnico de Multimédia aborda design gráfico, edição de imagem e vídeo, animação e desenvolvimento de páginas web. Dura 3 anos e dá equivalência ao 12º ano."
+  },
+  {
+    "id": "inscricoes",
+    "titulo": "Inscrições e Candidaturas",
+    "url": "https://etpc.pt/inscricoes",
+    "palavras_chave": ["inscricao", "inscricoes", "inscrever", "candidatura", "requisitos", "entrar", "matricula", "9 ano"],
+    "conteudo": "As inscrições estão abertas para alunos com o 9º ano concluído e idade inferior a 20 anos. Podem ser feitas online em etpc.pt ou presencialmente na Secretaria da escola."
+  },
+  {
+    "id": "apoios",
+    "titulo": "Apoios Sociais e Benefícios",
+    "url": "https://etpc.pt/inscricoes",
+    "palavras_chave": ["apoios", "bolsa", "subsidio", "transporte", "alimentacao", "gratuito", "preco", "custo", "pagar"],
+    "conteudo": "Os Cursos Profissionais na ETPC são gratuitos. Os alunos podem ter direito a subsídio de alimentação, transporte gratuito e bolsa de material de estudo segundo a Ação Social Escolar."
+  },
+  {
+    "id": "contactos",
+    "titulo": "Contactos e Localização",
+    "url": "https://etpc.pt/contactos",
+    "palavras_chave": ["contacto", "contactos", "telefone", "email", "morada", "onde", "localizacao", "horario", "secretaria"],
+    "conteudo": "A ETPC situa-se em Cantanhede. Telefone: +351 231 410 120. Email: geral@etpc.pt. A Secretaria funciona nos dias úteis das 09h00 às 17h00."
+  }
+]
