@@ -1,9 +1,9 @@
 let conhecimentoETPC = [];
 
-// Lista de palavras irrelevantes para ignorar na pesquisa
-const stopWords = ['o', 'a', 'os', 'as', 'um', 'uma', 'de', 'da', 'do', 'em', 'para', 'que', 'qual', 'quais', 'onde', 'como', 'existe', 'ha', 'tem'];
+// Palavras a ignorar na pesquisa para não baralhar os resultados
+const stopWords = ['o', 'a', 'os', 'as', 'um', 'uma', 'de', 'da', 'do', 'em', 'para', 'que', 'qual', 'quais', 'onde', 'como', 'existe', 'ha', 'tem', 'sobre', 'mais', 'queria', 'saber', 'ver', 'me'];
 
-// Palavras-chave associadas a assuntos exteriores à escola
+// Palavras-chave associadas a assuntos fora do âmbito da escola
 const temasForaAmbito = ['futebol', 'politica', 'receita', 'jogo', 'tempo', 'meteo', 'filme', 'musica', 'presidente', 'carro'];
 
 // 1. Carregar a Base de Dados JSON
@@ -24,7 +24,6 @@ chatForm.addEventListener('submit', (e) => {
   appendMessage(question, 'user');
   userInput.value = '';
 
-  // Processar resposta localmente sem qualquer API
   const responseText = processarPergunta(question);
   appendMessage(responseText, 'bot');
 });
@@ -40,37 +39,51 @@ function appendMessage(text, sender) {
   return msgDiv;
 }
 
-// Função para remover acentos e converter para minúsculas
 function normalizarTexto(str) {
   return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w\s]/gi, '');
 }
 
-// 2. Lógica de Pesquisa no JSON
 function processarPergunta(perguntaUtilizador) {
   const perguntaLimpa = normalizarTexto(perguntaUtilizador);
   const palavras = perguntaLimpa.split(' ').filter(p => p.length > 1 && !stopWords.includes(p));
 
-  // Regra 1: Verificar se a pergunta é sobre assuntos exteriores
+  // 1. Verificar se é assunto fora de âmbito
   const ehForaDeAmbito = palavras.some(palavra => temasForaAmbito.includes(palavra));
   if (ehForaDeAmbito) {
     return "Apenas posso responder a questões relacionadas com a ETPC e o seu site oficial.";
   }
 
+  // 2. Se a pergunta for geral sobre "cursos", lista todos os cursos disponíveis
+  if (palavras.includes('curso') || palavras.includes('cursos') || palavras.includes('oferta')) {
+    const cursos = conhecimentoETPC.filter(item => item.id.startsWith('curso'));
+    if (cursos.length > 0) {
+      let respostaCursos = "A ETPC oferece os seguintes Cursos Profissionais de Nível 4:\n\n";
+      cursos.forEach(c => {
+        respostaCursos += `• ${c.titulo}: ${c.conteudo}\n\n`;
+      });
+      return respostaCursos.trim();
+    }
+  }
+
+  // 3. Pesquisa avançada por relevância de palavras-chave
   let melhorCorrespondencia = null;
   let pontuacaoMaxima = 0;
 
-  // Regra 2: Pontuar cada item da base de dados com base nas palavras coincidentes
   conhecimentoETPC.forEach(item => {
     let pontuacao = 0;
-    const textoItem = normalizarTexto(`${item.titulo} ${item.conteudo} ${(item.palavras_chave || []).join(' ')}`);
+    const palavrasChaveItem = (item.palavras_chave || []).map(normalizarTexto);
+    const tituloItem = normalizarTexto(item.titulo);
+    const conteudoItem = normalizarTexto(item.conteudo);
 
     palavras.forEach(palavra => {
-      if (textoItem.includes(palavra)) {
-        pontuacao += 1;
-        // Bónus se a palavra estiver explicitamente nas palavras-chave do item
-        if ((item.palavras_chave || []).map(normalizarTexto).includes(palavra)) {
-          pontuacao += 2;
-        }
+      if (palavrasChaveItem.includes(palavra)) {
+        pontuacao += 5; // Peso máximo se coincidir com as palavras-chave do tópico
+      }
+      if (tituloItem.includes(palavra)) {
+        pontuacao += 3; // Peso médio para título
+      }
+      if (conteudoItem.includes(palavra)) {
+        pontuacao += 1; // Peso base para texto do conteúdo
       }
     });
 
@@ -80,11 +93,10 @@ function processarPergunta(perguntaUtilizador) {
     }
   });
 
-  // Regra 3: Se houver correspondência com pontuação mínima
+  // 4. Retorna apenas o texto do conteúdo (sem incluir a linha de fonte)
   if (melhorCorrespondencia && pontuacaoMaxima > 0) {
-    return `${melhorCorrespondencia.conteudo}\n\nFonte: ${melhorCorrespondencia.url}`;
+    return melhorCorrespondencia.conteudo;
   }
 
-  // Regra 4: Se não encontrar informação suficiente no JSON
   return "Não disponho de informação suficiente no site da ETPC para responder a essa questão.";
 }
