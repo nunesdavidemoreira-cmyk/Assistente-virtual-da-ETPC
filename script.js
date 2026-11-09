@@ -1,15 +1,26 @@
+const SUPABASE_URL = "COLA_AQUI_O_PROJECT_URL";
+const SUPABASE_ANON_KEY = "COLA_AQUI_A_CHAVE_ANON_PUBLIC";
+
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 let conhecimentoETPC = [];
 
-// Palavras a ignorar na pesquisa
-const stopWords = ['o', 'a', 'os', 'as', 'um', 'uma', 'de', 'da', 'do', 'em', 'para', 'que', 'qual', 'quais', 'onde', 'como', 'existe', 'ha', 'tem', 'sobre', 'mais', 'queria', 'saber', 'ver', 'me', 'e'];
-// Palavras-chave associadas a assuntos fora do âmbito da escola
+const stopWords = ['o', 'a', 'os', 'as', 'um', 'uma', 'de', 'da', 'do', 'em', 'para', 'que', 'qual', 'quais', 'onde', 'como', 'existe', 'ha', 'tem', 'sobre', 'mais', 'queria', 'saber', 'ver', 'me', 'e', 'quem'];
 const temasForaAmbito = ['futebol', 'politica', 'receita', 'jogo', 'tempo', 'meteo', 'filme', 'musica', 'presidente', 'carro'];
 
-// 1. Carregar a Base de Dados JSON
-fetch('conhecimento.json')
-  .then(response => response.json())
-  .then(data => { conhecimentoETPC = data; })
-  .catch(err => console.error('Erro ao carregar a base de dados:', err));
+async function carregarDadosSupabase() {
+  const { data, error } = await supabaseClient
+    .from('conhecimento')
+    .select('*');
+
+  if (error) {
+    console.error('Erro ao carregar dados do Supabase:', error);
+  } else {
+    conhecimentoETPC = data;
+  }
+}
+
+carregarDadosSupabase();
 
 const chatForm = document.getElementById('chat-form');
 const userInput = document.getElementById('user-input');
@@ -44,16 +55,13 @@ function normalizarTexto(str) {
 
 function processarPergunta(perguntaUtilizador) {
   const perguntaLimpa = normalizarTexto(perguntaUtilizador);
-  // Aceita palavras com 2 ou mais letras para capturar siglas como PAP
   const palavras = perguntaLimpa.split(' ').filter(p => p.length >= 2 && !stopWords.includes(p));
 
-  // 1. Verificar se é assunto fora de âmbito
   const ehForaDeAmbito = palavras.some(palavra => temasForaAmbito.includes(palavra));
   if (ehForaDeAmbito) {
     return "Apenas posso responder a questões relacionadas com a ETPC e o seu site oficial.";
   }
 
-  // 2. Se a pergunta for geral sobre "cursos"
   if (palavras.includes('curso') || palavras.includes('cursos') || palavras.includes('oferta')) {
     const cursos = conhecimentoETPC.filter(item => item.id.startsWith('curso'));
     if (cursos.length > 0) {
@@ -65,7 +73,6 @@ function processarPergunta(perguntaUtilizador) {
     }
   }
 
-  // 3. Pesquisa avançada por relevância de palavras-chave
   let melhorCorrespondencia = null;
   let pontuacaoMaxima = 0;
 
@@ -77,7 +84,7 @@ function processarPergunta(perguntaUtilizador) {
 
     palavras.forEach(palavra => {
       if (palavrasChaveItem.includes(palavra)) {
-        pontuacao += 10; // Prioridade máxima quando coincide com a sigla/palavra-chave exata
+        pontuacao += 10;
       }
       if (tituloItem.includes(palavra)) {
         pontuacao += 4;
@@ -93,7 +100,6 @@ function processarPergunta(perguntaUtilizador) {
     }
   });
 
-  // 4. Retornar resposta encontrada
   if (melhorCorrespondencia && pontuacaoMaxima > 0) {
     return melhorCorrespondencia.conteudo;
   }
