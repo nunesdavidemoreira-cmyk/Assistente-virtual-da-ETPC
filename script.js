@@ -1,14 +1,25 @@
 const SUPABASE_URL = "https://kcncgbazlantwwswdxdy.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_PLV5_-QpGRZRJcnuEcg9rw_Nbv9XgRH";
+// Coloca a tua chave anon public completa dentro das aspas abaixo:
+const SUPABASE_ANON_KEY = "sb_pud1shabls_F1VT_Qp3R31cvuFcCrn_AhvRXqPU";
 
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
+let supabaseClient = null;
 let conhecimentoETPC = [];
+
+// Inicializar cliente do Supabase
+try {
+  if (typeof supabase !== 'undefined') {
+    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+} catch (err) {
+  console.error("Erro ao inicializar Supabase:", err);
+}
 
 const stopWords = ['o', 'a', 'os', 'as', 'um', 'uma', 'de', 'da', 'do', 'em', 'para', 'que', 'qual', 'quais', 'onde', 'como', 'existe', 'ha', 'tem', 'sobre', 'mais', 'queria', 'saber', 'ver', 'me', 'e', 'quem', 'posso', 'quais', 'preciso'];
 const temasForaAmbito = ['futebol', 'politica', 'receita', 'jogo', 'tempo', 'meteo', 'filme', 'musica', 'presidente', 'carro'];
 
+// Carregar dados da tabela do Supabase
 async function carregarDadosSupabase() {
+  if (!supabaseClient) return;
   const { data, error } = await supabaseClient
     .from('conhecimento')
     .select('*');
@@ -16,7 +27,7 @@ async function carregarDadosSupabase() {
   if (error) {
     console.error('Erro ao carregar dados do Supabase:', error);
   } else {
-    conhecimentoETPC = data;
+    conhecimentoETPC = data || [];
   }
 }
 
@@ -26,17 +37,19 @@ const chatForm = document.getElementById('chat-form');
 const userInput = document.getElementById('user-input');
 const chatBox = document.getElementById('chat-box');
 
-chatForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const question = userInput.value.trim();
-  if (!question) return;
+if (chatForm) {
+  chatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const question = userInput.value.trim();
+    if (!question) return;
 
-  appendMessage(question, 'user');
-  userInput.value = '';
+    appendMessage(question, 'user');
+    userInput.value = '';
 
-  const responseText = processarPergunta(question);
-  appendMessage(responseText, 'bot');
-});
+    const responseText = processarPergunta(question);
+    appendMessage(responseText, 'bot');
+  });
+}
 
 function appendMessage(text, sender) {
   const msgDiv = document.createElement('div');
@@ -54,6 +67,10 @@ function normalizarTexto(str) {
 }
 
 function processarPergunta(perguntaUtilizador) {
+  if (conhecimentoETPC.length === 0) {
+    return "A carregar dados da ETPC... Por favor tenta novamente em alguns segundos.";
+  }
+
   const perguntaLimpa = normalizarTexto(perguntaUtilizador);
   const palavras = perguntaLimpa.split(' ').filter(p => p.length >= 2 && !stopWords.includes(p));
 
@@ -63,7 +80,7 @@ function processarPergunta(perguntaUtilizador) {
   }
 
   if (palavras.includes('curso') || palavras.includes('cursos') || palavras.includes('oferta')) {
-    const cursos = conhecimentoETPC.filter(item => item.id.startsWith('curso'));
+    const cursos = conhecimentoETPC.filter(item => item.id && item.id.startsWith('curso'));
     if (cursos.length > 0) {
       let respostaCursos = "A ETPC oferece os seguintes Cursos Profissionais de Nível 4:\n\n";
       cursos.forEach(c => {
@@ -79,8 +96,8 @@ function processarPergunta(perguntaUtilizador) {
   conhecimentoETPC.forEach(item => {
     let pontuacao = 0;
     const palavrasChaveItem = (item.palavras_chave || []).map(normalizarTexto);
-    const tituloItem = normalizarTexto(item.titulo);
-    const conteudoItem = normalizarTexto(item.conteudo);
+    const tituloItem = normalizarTexto(item.titulo || '');
+    const conteudoItem = normalizarTexto(item.conteudo || '');
 
     palavras.forEach(palavra => {
       if (palavrasChaveItem.includes(palavra)) {
